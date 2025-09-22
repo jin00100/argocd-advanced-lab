@@ -1,3 +1,4 @@
 # 开发环境，使用 base 配置，不打补丁
+nameSuffix: -dev
 bases:
 - ../../base
