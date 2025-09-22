@@ -1,0 +1,5 @@
+# 生产环境，副本数增加到3
+bases:
+- ../../base
+patchesStrategicMerge:
+- replica-patch.yaml

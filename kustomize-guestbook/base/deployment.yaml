@@ -1,0 +1,22 @@
+apiVersion: apps/v1              # 使用的 API 版本，这里是 apps 组的 v1（Deployment 在 v1 中是稳定版）
+kind: Deployment                 # 资源类型，这里是 Deployment（用于管理一组 Pod 的副本）
+metadata:
+  name: guestbook-ui             # Deployment 的名字，集群里唯一标识这个对象
+
+spec:                            # 具体的定义内容（期望状态）
+  replicas: 1                    # 副本数量，这里只运行 1 个 Pod
+  selector:                      # 用于选择要管理的 Pod
+    matchLabels:                 # 匹配标签规则
+      app: guestbook-ui          # 匹配标签 app=guestbook-ui 的 Pod
+
+  template:                      # Pod 模板（Deployment 会根据这个模板创建 Pod）
+    metadata:
+      labels:
+        app: guestbook-ui        # 给 Pod 打上标签 app=guestbook-ui（必须与 selector 匹配）
+    spec:
+      containers:                # Pod 内运行的容器列表
+      - image: gcr.io/heptio-images/ks-guestbook-demo:0.2  # 容器镜像（Google Container Registry）
+        name: guestbook-ui       # 容器名字
+        ports:
+        - containerPort: 80      # 容器开放的端口，供 Service 或外部访问
+
